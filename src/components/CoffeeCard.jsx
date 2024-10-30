@@ -1,47 +1,47 @@
 import React from "react";
 import {
   Card,
-  // CardHeader,
   CardBody,
   CardFooter,
   Image,
-  Stack,
+  Badge,
+  HStack,
   Heading,
   Text,
-  Button,
-  ButtonGroup,
 } from "@chakra-ui/react";
+import filledStar from "../assets/Star_fill.svg";
 
-const CoffeeCard = () => {
+const CoffeeCard = (props) => {
   return (
     <Card maxW="sm">
-      <CardBody>
-        <Image
-          src="https://csyxkpbavpcrhwqhcpyy.supabase.co/storage/v1/object/public/assets/coffee-challenge/cappuccino.jpg"
-          alt="Cappucino"
-          borderRadius="lg"
-        />
-        <Stack mt="6" spacing="3">
-          <Heading size="md">Cappuccino</Heading>
-          <Text>
-            This sofa is perfect for modern tropical spaces, baroque inspired
-            spaces, earthy toned spaces and for people who love a chic design
-            with a sprinkle of vintage design.
-          </Text>
-          <Text color="blue.600" fontSize="2xl">
-            $450
-          </Text>
-        </Stack>
+      <CardBody p={0} position="relative">
+        <Image src={props.image} alt={props.title} borderRadius="lg" />
+        {props.isPopular && (
+          <Badge
+            color="black"
+            bg="yellow"
+            padding="0.35em 0.75em"
+            borderRadius="3xl"
+            position="absolute"
+            top="7px"
+            left="7px"
+          >
+            Popular
+          </Badge>
+        )}
       </CardBody>
-      <CardFooter>
-        <ButtonGroup spacing="2">
-          <Button variant="solid" colorScheme="blue">
-            Buy now
-          </Button>
-          <Button variant="ghost" colorScheme="blue">
-            Add to cart
-          </Button>
-        </ButtonGroup>
+      <CardFooter sx={{ display: "flex", flexDir: "column", padding: "0.5em" }}>
+        <HStack mt="2" mb={2} justifyContent="space-between">
+          <Heading size="md">{props.title}</Heading>
+          <Badge color="blue.600" padding="0.25em 0.5em" borderRadius="base">
+            {props.price}
+          </Badge>
+        </HStack>
+        <HStack>
+          <img src={filledStar} alt="Star" />
+          <Text>{props.rating}</Text>
+          <Text>({props.votes} votes)</Text>
+        </HStack>
       </CardFooter>
     </Card>
   );
