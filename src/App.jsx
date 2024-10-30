@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { Fragment } from "react";
+import "./App.css";
+import bgCafe from "./assets/bg-cafe.jpg";
+import { Box, Stack, Container, Button, ButtonGroup } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
+import CoffeeCard from "./components/CoffeeCard";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Fragment>
+      <Container maxW="7xl" bg="brand.darkGray" centerContent="true">
+        <Stack spacing={3}>
+          <Text fontSize="3xl" color="brand.white">
+            Our collection
+          </Text>
+          <Text fontSize="xl" color="brand.gray">
+            Introducing our Coffee Collection, a selection of unique coffees
+            from different roast types and origins, expertly roasted in small
+            batches and shipped fresh weekly.
+          </Text>
+          <ButtonGroup>
+            <Button bgColor="brand.gray" color="brand.white">
+              All Products
+            </Button>
+            <Button bgColor="brand.darkGray" color="brand.white">
+              Available Now
+            </Button>
+          </ButtonGroup>
+        </Stack>
+        <CoffeeCard />
+      </Container>
+    </Fragment>
+  );
 }
 
-export default App
+export default App;
