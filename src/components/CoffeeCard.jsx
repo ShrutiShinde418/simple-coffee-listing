@@ -37,10 +37,19 @@ const CoffeeCard = (props) => {
             {props.price}
           </Badge>
         </HStack>
-        <HStack>
-          <img src={filledStar} alt="Star" />
-          <Text>{props.rating}</Text>
-          <Text>({props.votes} votes)</Text>
+        <HStack mt="2" justifyContent="space-between">
+          <HStack>
+            <img src={filledStar} alt="Star" />
+            <Text>{props.rating}</Text>
+            <Text>({props.votes} votes)</Text>
+          </HStack>
+          {!props.available && (
+            <HStack>
+              <Text color="red" fontWeight={600}>
+                Sold out
+              </Text>
+            </HStack>
+          )}
         </HStack>
       </CardFooter>
     </Card>
