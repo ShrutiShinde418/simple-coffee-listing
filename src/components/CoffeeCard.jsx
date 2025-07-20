@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Card,
   CardBody,
@@ -10,21 +9,23 @@ import {
   Text,
 } from "@chakra-ui/react";
 import filledStar from "../assets/Star_fill.svg";
+import notFilledStar from "../assets/Star.svg";
 
 const CoffeeCard = (props) => {
   return (
-    <Card maxW="sm">
+    <Card maxW="sm" bg="brand.darkGray">
       <CardBody p={0} position="relative">
         <Image src={props.image} alt={props.title} borderRadius="lg" />
         {props.isPopular && (
           <Badge
             color="black"
-            bg="yellow"
+            bg="brand.yellow"
             padding="0.35em 0.75em"
             borderRadius="3xl"
             position="absolute"
             top="7px"
             left="7px"
+            textTransform="capitalize"
           >
             Popular
           </Badge>
@@ -32,20 +33,31 @@ const CoffeeCard = (props) => {
       </CardBody>
       <CardFooter sx={{ display: "flex", flexDir: "column", padding: "0.5em" }}>
         <HStack mt="2" mb={2} justifyContent="space-between">
-          <Heading size="md">{props.title}</Heading>
-          <Badge color="blue.600" padding="0.25em 0.5em" borderRadius="base">
+          <Heading size="md" color="brand.white" fontWeight="semibold">
+            {props.title}
+          </Heading>
+          <Badge
+            color="brand.black"
+            padding="0.25em 0.5em"
+            borderRadius="base"
+            bg="brand.lightGreen"
+          >
             {props.price}
           </Badge>
         </HStack>
         <HStack mt="2" justifyContent="space-between">
           <HStack>
-            <img src={filledStar} alt="Star" />
-            <Text>{props.rating}</Text>
-            <Text>({props.votes} votes)</Text>
+            <img src={!props.rating ? notFilledStar : filledStar} alt="Star" />
+            <Text color="brand.white">
+              {!props.rating ? "No ratings" : props.rating}
+            </Text>
+            <Text color="brand.gray">
+              {props.votes !== 0 ? `(${props.votes} votes)` : ""}
+            </Text>
           </HStack>
           {!props.available && (
             <HStack>
-              <Text color="red" fontWeight={600}>
+              <Text color="brand.salmon" fontWeight={600}>
                 Sold out
               </Text>
             </HStack>

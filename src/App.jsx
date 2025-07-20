@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import "./App.css";
 import {
   Stack,
@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import CoffeeCard from "./components/CoffeeCard";
+import bgImage from "./assets/bg-cafe.jpg";
 
 function App() {
   const [drinksCollection, setDrinksCollection] = useState([]);
@@ -28,57 +29,72 @@ function App() {
 
   return (
     <Fragment>
-      <Container
-        maxW="7xl"
-        bg="brand.darkGray"
-        centerContent={true}
+      <Box
+        position="relative"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        flexDirection="column"
         minH="100vh"
-        padding={10}
+        bgImage={bgImage}
+        bgSize="contain"
+        bgRepeat="no-repeat"
+        bgColor="brand.black"
       >
-        <Stack spacing={3} textAlign="center" mx={5}>
-          <Text fontSize="3xl" color="brand.white">
-            Our collection
-          </Text>
-          <Text fontSize="xl" color="brand.gray" marginBottom={4}>
-            Introducing our Coffee Collection, a selection of unique coffees
-            from different roast types and origins, expertly roasted in small
-            batches and shipped fresh weekly.
-          </Text>
-          <Box
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            marginBottom={12}
-          >
-            <ButtonGroup>
-              <Button bgColor="brand.gray" color="brand.white">
-                All Products
-              </Button>
-              <Button bgColor="brand.darkGray" color="brand.white">
-                Available Now
-              </Button>
-            </ButtonGroup>
-          </Box>
-        </Stack>
-        <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
-          {drinksCollection.length > 0 &&
-            drinksCollection.map((drink) => {
-              return (
-                <GridItem key={drink.id}>
-                  <CoffeeCard
-                    title={drink.name}
-                    isPopular={drink.popular}
-                    price={drink.price}
-                    image={drink.image}
-                    rating={drink.rating}
-                    votes={drink.votes}
-                    available={drink.available}
-                  />
-                </GridItem>
-              );
-            })}
-        </Grid>
-      </Container>
+        <Container
+          maxW="6xl"
+          bg="brand.darkGray"
+          centerContent={true}
+          padding="6em"
+          borderRadius="1.05rem"
+          marginBottom="4em"
+          marginTop="12%"
+        >
+          <Stack spacing={3} textAlign="center" mx={5}>
+            <Text fontSize="3xl" color="brand.white" fontWeight="semibold">
+              Our collection
+            </Text>
+            <Text fontSize="xl" color="brand.gray" marginBottom={4}>
+              Introducing our Coffee Collection, a selection of unique coffees
+              from different roast types and origins, expertly roasted in small
+              batches and shipped fresh weekly.
+            </Text>
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              marginBottom={12}
+            >
+              <ButtonGroup>
+                <Button bgColor="brand.deepGray" color="brand.white">
+                  All Products
+                </Button>
+                <Button bgColor="brand.darkGray" color="brand.white">
+                  Available Now
+                </Button>
+              </ButtonGroup>
+            </Box>
+          </Stack>
+          <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
+            {drinksCollection.length > 0 &&
+              drinksCollection.map((drink) => {
+                return (
+                  <GridItem key={drink.id}>
+                    <CoffeeCard
+                      title={drink.name}
+                      isPopular={drink.popular}
+                      price={drink.price}
+                      image={drink.image}
+                      rating={drink.rating}
+                      votes={drink.votes}
+                      available={drink.available}
+                    />
+                  </GridItem>
+                );
+              })}
+          </Grid>
+        </Container>
+      </Box>
     </Fragment>
   );
 }
