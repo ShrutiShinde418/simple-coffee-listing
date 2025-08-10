@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   CardBody,
@@ -7,15 +8,25 @@ import {
   HStack,
   Heading,
   Text,
+  Skeleton,
 } from "@chakra-ui/react";
 import filledStar from "../assets/Star_fill.svg";
 import notFilledStar from "../assets/Star.svg";
 
 const CoffeeCard = (props) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
   return (
-    <Card maxW="sm" bg="brand.darkGray">
+    <Card maxW="sm" bg="brand.darkGray" boxShadow="none">
       <CardBody p={0} position="relative">
-        <Image src={props.image} alt={props.title} borderRadius="lg" />
+        <Skeleton borderRadius="lg" isLoaded={!isImageLoading}>
+          <Image
+            src={props.image}
+            alt={props.title}
+            borderRadius="lg"
+            onLoad={() => setIsImageLoading(false)}
+          />
+        </Skeleton>
         {props.isPopular && (
           <Badge
             color="black"
@@ -32,8 +43,12 @@ const CoffeeCard = (props) => {
         )}
       </CardBody>
       <CardFooter sx={{ display: "flex", flexDir: "column", padding: "0.5em" }}>
-        <HStack mt="2" mb={2} justifyContent="space-between">
-          <Heading size="md" color="brand.white" fontWeight="semibold">
+        <HStack mt="2" mb={1} justifyContent="space-between">
+          <Heading
+            fontSize={{ xl: "1.15rem", md: "1rem" }}
+            color="brand.white"
+            fontWeight="semibold"
+          >
             {props.title}
           </Heading>
           <Badge
@@ -45,11 +60,17 @@ const CoffeeCard = (props) => {
             {props.price}
           </Badge>
         </HStack>
-        <HStack mt="2" justifyContent="space-between">
+        <HStack
+          mt="2"
+          justifyContent="space-between"
+          fontSize={{ xl: "1rem", base: "0.85rem" }}
+        >
           <HStack>
             <img src={!props.rating ? notFilledStar : filledStar} alt="Star" />
             <Text color="brand.white">
-              {!props.rating ? "No ratings" : props.rating}
+              {!props.rating
+                ? "No ratings"
+                : parseFloat(props.rating).toFixed(2)}
             </Text>
             <Text color="brand.gray">
               {props.votes !== 0 ? `(${props.votes} votes)` : ""}

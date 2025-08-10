@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import "./App.css";
 import {
   Stack,
   Container,
@@ -12,16 +11,17 @@ import {
 import { Text } from "@chakra-ui/react";
 import CoffeeCard from "./components/CoffeeCard";
 import bgImage from "./assets/bg-cafe.jpg";
+import containerBgImage from "./assets/vector.svg";
 
 function App() {
   const [drinksCollection, setDrinksCollection] = useState([]);
+  
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
         "https://raw.githubusercontent.com/devchallenges-io/web-project-ideas/main/front-end-projects/data/simple-coffee-listing-data.json"
       );
       const data = await response.json();
-      console.log(data);
       setDrinksCollection(data);
     };
     getData();
@@ -40,21 +40,33 @@ function App() {
         bgSize="contain"
         bgRepeat="no-repeat"
         bgColor="brand.black"
+        px={{ base: "2em", md: "3em", xl: 0 }}
       >
         <Container
           maxW="6xl"
           bg="brand.darkGray"
           centerContent={true}
-          padding="6em"
+          padding={{ xl: "6em", lg: "5em", md: "4em 3em", base: "3em 1.5em" }}
           borderRadius="1.05rem"
           marginBottom="4em"
           marginTop="12%"
+          bgImage={containerBgImage}
+          bgRepeat="no-repeat"
+          backgroundPosition={{
+            xl: "65% 40px",
+            md: "80% 40px",
+            base: "center 10px",
+          }}
         >
           <Stack spacing={3} textAlign="center" mx={5}>
             <Text fontSize="3xl" color="brand.white" fontWeight="semibold">
-              Our collection
+              Our Collection
             </Text>
-            <Text fontSize="xl" color="brand.gray" marginBottom={4}>
+            <Text
+              fontSize={{ lg: "xl", md: "1rem", base: "0.85rem" }}
+              color="brand.gray"
+              marginBottom={4}
+            >
               Introducing our Coffee Collection, a selection of unique coffees
               from different roast types and origins, expertly roasted in small
               batches and shipped fresh weekly.
@@ -66,16 +78,24 @@ function App() {
               marginBottom={12}
             >
               <ButtonGroup>
-                <Button bgColor="brand.deepGray" color="brand.white">
+                <Button
+                  bgColor="brand.deepGray"
+                  color="brand.white"
+                  fontSize={{ md: "md", base: "0.85rem" }}
+                >
                   All Products
                 </Button>
-                <Button bgColor="brand.darkGray" color="brand.white">
+                <Button
+                  bgColor="brand.darkGray"
+                  color="brand.white"
+                  fontSize={{ md: "md", base: "0.85rem" }}
+                >
                   Available Now
                 </Button>
               </ButtonGroup>
             </Box>
           </Stack>
-          <Grid templateColumns="repeat(3, 1fr)" gap="2rem">
+          <Grid templateColumns={{ lg: "repeat(3, 1fr)" }} gap="2rem">
             {drinksCollection.length > 0 &&
               drinksCollection.map((drink) => {
                 return (

@@ -1,17 +1,1 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
-:root {
-  --dark-gray: #1b1d1f;
-  --black: #111315;
-  --gray: #6f757c;
-  --light-green: #bee3cc;
-  --white: #fef7ee;
-  --yellow: #f6c768;
-  --salmon: #ed735d;
-}
-
-/* body {
-  min-height: 100vh;
-  background: url("./assets/bg-cafe.jpg") var(--black) no-repeat !important;
-  background-size: cover !important;
-  background-position: top !important;
-} */
