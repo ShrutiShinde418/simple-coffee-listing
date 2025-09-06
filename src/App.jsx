@@ -13,9 +13,22 @@ import CoffeeCard from "./components/CoffeeCard";
 import bgImage from "./assets/bg-cafe.jpg";
 import containerBgImage from "./assets/vector.svg";
 
+const buttons = [
+  {
+    id: 1,
+    text: "All Products",
+  },
+  {
+    id: 2,
+    text: "Available Now",
+  },
+];
+
 function App() {
   const [drinksCollection, setDrinksCollection] = useState([]);
-  
+  const [filteredDrinks, setFilteredDrinks] = useState([]);
+  const [selectedButton, setSelectedButton] = useState("All Products");
+
   useEffect(() => {
     const getData = async () => {
       const response = await fetch(
@@ -26,6 +39,16 @@ function App() {
     };
     getData();
   }, []);
+
+  useEffect(() => {
+    if (selectedButton === "Available Now") {
+      setFilteredDrinks(() =>
+        drinksCollection.filter((items) => items.available)
+      );
+    } else {
+      setFilteredDrinks(drinksCollection);
+    }
+  }, [selectedButton]);
 
   return (
     <Fragment>
@@ -78,26 +101,27 @@ function App() {
               marginBottom={12}
             >
               <ButtonGroup>
-                <Button
-                  bgColor="brand.deepGray"
-                  color="brand.white"
-                  fontSize={{ md: "md", base: "0.85rem" }}
-                >
-                  All Products
-                </Button>
-                <Button
-                  bgColor="brand.darkGray"
-                  color="brand.white"
-                  fontSize={{ md: "md", base: "0.85rem" }}
-                >
-                  Available Now
-                </Button>
+                {buttons.map((button) => (
+                  <Button
+                    key={button.id}
+                    bgColor={
+                      selectedButton === button.text
+                        ? "brand.deepGray"
+                        : "brand.darkGray"
+                    }
+                    color="brand.white"
+                    fontSize={{ md: "md", base: "0.85rem" }}
+                    onClick={() => setSelectedButton(button.text)}
+                  >
+                    {button.text}
+                  </Button>
+                ))}
               </ButtonGroup>
             </Box>
           </Stack>
           <Grid templateColumns={{ lg: "repeat(3, 1fr)" }} gap="2rem">
-            {drinksCollection.length > 0 &&
-              drinksCollection.map((drink) => {
+            {filteredDrinks.length > 0 &&
+              filteredDrinks.map((drink) => {
                 return (
                   <GridItem key={drink.id}>
                     <CoffeeCard
