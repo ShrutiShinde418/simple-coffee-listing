@@ -48,7 +48,7 @@ function App() {
     } else {
       setFilteredDrinks(drinksCollection);
     }
-  }, [selectedButton]);
+  }, [selectedButton, drinksCollection]);
 
   return (
     <Fragment>
